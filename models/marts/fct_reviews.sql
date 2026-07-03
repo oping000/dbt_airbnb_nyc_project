@@ -1,6 +1,21 @@
+
+{{
+    config(
+        materialized='incremental',
+        unique_key = 'review_id'
+    )
+
+}}
+
+
+
 with reviews as (
 
 select * from {{ref('stg_airbnb__reviews')}}
+
+{% if is_incremental() %}
+    where review_date > (select max(review_date) from {{this}} )
+    {% endif %}
 ),
 
  listings as (
