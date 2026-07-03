@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: stg_airbnb__listings
+    columns:
+      - name: listing_id
+        data_tests:
+          - unique
+          - not_null
+      - name: host_id
+        data_tests:
+          - not_null
+      - name: room_type
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - Entire home/apt
+                  - Private room
+                  - Shared room
+                  - Hotel room
+
+  - name: stg_airbnb__reviews
+    columns:
+      - name: review_id
+        data_tests:
+          - unique
+          - not_null
+      - name: listing_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_airbnb__listings')
+                field: listing_id
+              config:
+                severity: warn
