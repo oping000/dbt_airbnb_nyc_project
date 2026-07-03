@@ -36,7 +36,7 @@ renamed as (
         longitude,
         
         -- pricing
-        price,
+        {{ clean_price('price') }} as price,
         minimum_nights,
         maximum_nights,
         
