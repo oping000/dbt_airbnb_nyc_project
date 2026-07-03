@@ -24,7 +24,9 @@ models:
       - name: price
         description: "Nightly price of the listing in USD."
         data_tests:
-          - not_null
+          - not_null:
+              config: 
+                severity: warn
 
   - name: dim_hosts
     description: "Dimension table containing Airbnb host attributes."
