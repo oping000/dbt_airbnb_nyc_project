@@ -1,0 +1,54 @@
+version: 2
+
+models:
+  - name: stg_airbnb__listings
+    description: "Cleaned and renamed staging model for Airbnb NYC listings sourced from raw_listings."
+    columns:
+      - name: listing_id
+        description: "{{ doc('listing_id') }}"
+        data_tests:
+          - unique
+          - not_null
+      - name: host_id
+        description: "{{ doc('host_id')}}"
+        data_tests:
+          - not_null
+      - name: room_type
+        description: "{{ doc('room_type')}}"
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - Entire home/apt
+                  - Private room
+                  - Shared room
+                  - Hotel room
+
+      - name: price
+        description: "{{ doc('price') }}"
+      - name: neighbourhood
+        description: "{{ doc('neighbourhood') }}"
+      - name: borough
+        description: "{{ doc('borough') }}"
+
+  - name: stg_airbnb__reviews
+    description:  "Cleaned and renamed staging model for Airbnb NYC reviews sourced from raw_reviews."
+    columns:
+      - name: review_id
+        description: "{{ doc('review_id') }}"
+        data_tests:
+          - unique
+          - not_null
+      - name: listing_id
+        description: "{{ doc('listing_id_fk') }}"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('stg_airbnb__listings')
+                field: listing_id
+              config:
+                severity: warn
+      - name: review_date
+        description: "{{ doc('review_date')}}"

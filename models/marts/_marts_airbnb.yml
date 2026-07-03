@@ -1,0 +1,51 @@
+version: 2
+
+models:
+  - name: dim_listings
+    description: "Dimension table containing cleaned Airbnb listing attributes."
+    columns:
+      - name: listing_id
+        description: "Primary key. Unique identifier for each listing."
+        data_tests:
+          - unique
+          - not_null
+      - name: host_id
+        description: "Foreign key to dim_hosts."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_hosts')
+                field: host_id
+      - name: room_type
+        description: "Type of room being listed."
+        data_tests:
+          - not_null
+      - name: price
+        description: "Nightly price of the listing in USD."
+        data_tests:
+          - not_null:
+              config: 
+                severity: warn
+
+  - name: dim_hosts
+    description: "Dimension table containing Airbnb host attributes."
+    columns:
+      - name: host_id
+        description: "Primary key. Unique identifier for each host."
+        data_tests:
+          - unique
+          - not_null
+
+  - name: fct_reviews
+    description: "Fact table containing all Airbnb reviews joined with listing context."
+    columns:
+      - name: review_id
+        description: "Primary key. Unique identifier for each review."
+        data_tests:
+          - unique
+          - not_null
+      - name: listing_id
+        description: "Foreign key to dim_listings."
+        data_tests:
+          - not_null
