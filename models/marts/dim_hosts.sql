@@ -1,6 +1,6 @@
 with listings as (
 
-select * from {{ref('airbnb','raw__listings')}}
+select * from {{ref('stg_airbnb__listings')}}
 
 ),
 hosts as (

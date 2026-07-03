@@ -8,7 +8,18 @@ renamed as (
         id as listing_id,
         host_id,
         
-        -- listing details
+
+     -- host details
+        host_name,
+        host_since,
+        host_is_superhost,
+        host_response_time,
+        host_response_rate,
+        host_acceptance_rate,
+        host_listings_count,
+        host_identity_verified,
+
+        -- listing 
         name as listing_name,
         room_type,
         property_type,
