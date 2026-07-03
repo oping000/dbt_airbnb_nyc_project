@@ -1,6 +1,6 @@
 {% docs listing_id %}
 Unique Identifier for each Airbnb listing. Primary key of the listing table.
- { % enddocs% }
+{% enddocs %}
 
  {% docs host_id %}
  Unique Identifier for each Airbnb host. Foreign key to the host table.
